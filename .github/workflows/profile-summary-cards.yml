@@ -20,4 +20,4 @@ jobs:
         with:
           USERNAME: ${{ github.repository_owner }}
           UTC_OFFSET: 9
-          THEME: tokyo_night
+          THEME: tokyonight
