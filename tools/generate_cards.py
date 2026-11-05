@@ -29,6 +29,8 @@ joined = user["created_at"][:4]
 lang_bytes = {}
 commit_lang = {}
 for r in own:
+    if r.get("fork"):
+        continue  # language stats follow github-readme-stats convention: own repos only
     name = r["name"]
     langs = ghj(f"repos/{USER}/{name}/languages")
     for k, v in langs.items():
