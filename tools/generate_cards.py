@@ -146,24 +146,44 @@ def delay(ms):
     return f'style="animation-delay:{ms}ms"'
 
 def lang_card(fname, title, data, w=392):
+    h = 208
+    cx, cy, r = 102, 116, 64
+    segs = []
+    kf = []
+    start = 0.0
+    for i, (name, pct) in enumerate(data):
+        color = LANG_COLORS.get(name, "#7aa2f7")
+        offset = 25 - start
+        segs.append(f'''  <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{color}" stroke-width="24"
+      pathLength="100" stroke-dasharray="{pct:.2f} {100 - pct:.2f}" stroke-dashoffset="{offset:.2f}"
+      class="seg{i}" />''')
+        kf.append(f"    .seg{i} {{ animation: seg{i} .9s ease-out {200 + i * 120}ms forwards; }}")
+        kf.append(f"    @keyframes seg{i} {{ from {{ stroke-dasharray: 0 100; }} }}")
+        start += pct
     rows = []
-    y = 58
+    y = 66
     for i, (name, pct) in enumerate(data):
         color = LANG_COLORS.get(name, "#7aa2f7")
         rows.append(f"""
-  <g class="r" {delay(120 + i * 110)}>
-    <circle cx="30" cy="{y - 4}" r="5" fill="{color}"/>
-    <text class="label" x="46" y="{y}">{name}</text>
-    <text class="pct" x="{w - 24}" y="{y}" text-anchor="end">{pct:.1f}%</text>
-    <rect x="24" y="{y + 8}" width="{w - 48}" height="7" rx="3.5" fill="#292e42"/>
-    <rect class="bar" {delay(260 + i * 110)} x="24" y="{y + 8}" width="{(w - 48) * pct / 100:.1f}" height="7" rx="3.5" fill="{color}"/>
+  <g class="r" {delay(150 + i * 100)}>
+    <circle cx="212" cy="{y - 4}" r="5" fill="{color}"/>
+    <text class="label" x="228" y="{y}">{name}</text>
+    <text class="pct" x="{w - 22}" y="{y}" text-anchor="end">{pct:.1f}%</text>
   </g>""")
-        y += 42
-    h = y - 42 + 34
+        y += 23
+    top_name, top_pct = data[0]
     svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" role="img" aria-label="{title}">
-{BG}  <style>{CSS}  </style>
+{BG}  <style>{CSS}
+{chr(10).join(kf)}
+  </style>
   <rect width="{w}" height="{h}" rx="12" fill="url(#bg)"/>
   <text class="title r" {delay(0)} x="24" y="32">{title}</text>
+  <circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="#292e42" stroke-width="24"/>
+{chr(10).join(segs)}
+  <g class="r" {delay(500)} text-anchor="middle">
+    <text x="{cx}" y="{cy - 2}" font-size="16" font-weight="700" fill="#c0caf5">{top_name}</text>
+    <text x="{cx}" y="{cy + 18}" font-size="12.5" fill="#565f89">{top_pct:.1f}%</text>
+  </g>
 {''.join(rows)}
 </svg>
 """
