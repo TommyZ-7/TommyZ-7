@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/TommyZ-7/TommyZ-7/main/assets/card-profile-2.svg" width="800" alt="Profile details" />
+  <img src="https://raw.githubusercontent.com/TommyZ-7/TommyZ-7/main/assets/card-profile-3.svg" width="800" alt="Profile details" />
 </p>
 
 <p align="center">
@@ -16,5 +16,5 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/TommyZ-7/TommyZ-7/main/assets/card-stats-2.svg" width="800" alt="Stats" />
+  <img src="https://raw.githubusercontent.com/TommyZ-7/TommyZ-7/main/assets/card-stats-3.svg" width="800" alt="Stats" />
 </p>

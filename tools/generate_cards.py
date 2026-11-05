@@ -20,6 +20,7 @@ def ghj(path):
 
 # ---------- fetch data ----------
 user = ghj(f"users/{USER}")
+total_repos = len(ghj("user/repos?type=owner&per_page=100"))
 repos = ghj(f"users/{USER}/repos?per_page=100")
 own = [r for r in repos]
 total_stars = sum(r["stargazers_count"] for r in own)
@@ -68,7 +69,7 @@ prs = gh(f"search/issues?q=author:{USER}+type:pr", ".total_count")
 issues = gh(f"search/issues?q=author:{USER}+type:issue", ".total_count")
 
 print(json.dumps({
-    "stars": total_stars, "forks": total_forks, "repos": user["public_repos"] - 1,
+    "stars": total_stars, "forks": total_forks, "repos": total_repos,
     "followers": user["followers"], "following": user["following"], "joined": joined,
     "commits_1y": commits_1y, "prs": prs, "issues": issues,
     "repo_langs": repo_langs, "commit_langs": commit_langs,
@@ -138,7 +139,7 @@ def stat_block(x, w, num, cap, d):
 
 # ---------- profile details (800 wide) ----------
 facts = [
-    (str(user["public_repos"] - 1), "REPOSITORIES"),
+    (str(total_repos), "REPOSITORIES"),
     (str(total_stars), "STARS"),
     (str(total_forks), "FORKS"),
     (str(user["followers"]), "FOLLOWERS"),
@@ -165,7 +166,7 @@ stats = [
     (str(commits_1y), "COMMITS (1Y)"),
     (str(prs), "PULL REQUESTS"),
     (str(issues), "ISSUES"),
-    (str(user["public_repos"] - 1), "REPOSITORIES"),
+    (str(total_repos), "REPOSITORIES"),
 ]
 blocks = "".join(stat_block(24 + i * 152, 140, n, c, 150 + i * 100) for i, (n, c) in enumerate(stats))
 svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 150" width="800" height="150" role="img" aria-label="Stats">
