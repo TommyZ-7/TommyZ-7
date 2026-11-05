@@ -221,14 +221,14 @@ lang_card("card-languages.svg", "REPOS PER LANGUAGE", repo_langs)
 lang_card("card-commit-languages.svg", "COMMITS PER LANGUAGE", commit_langs)
 
 # ---------- stats (800 wide) ----------
+# Only items that do not duplicate the profile card (stars / repositories live there).
 stats = [
-    (str(total_stars), "TOTAL STARS"),
     (str(commits_1y), "COMMITS (1Y)"),
     (str(prs), "PULL REQUESTS"),
     (str(issues), "ISSUES"),
-    (str(total_repos), "REPOSITORIES"),
 ]
-blocks = "".join(stat_block(24 + i * 152, 140, n, c, 150 + i * 100) for i, (n, c) in enumerate(stats))
+slot = (800 - 48) / len(stats)
+blocks = "".join(stat_block(24 + i * slot, slot - 12, n, c, 150 + i * 100) for i, (n, c) in enumerate(stats))
 svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 150" width="800" height="150" role="img" aria-label="Stats">
 {BG}  <style>{CSS}  </style>
   <rect width="800" height="150" rx="12" fill="url(#bg)"/>
