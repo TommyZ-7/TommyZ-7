@@ -11,8 +11,8 @@
 </p>
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/TommyZ-7/TommyZ-7/main/assets/card-languages.svg" alt="Repos per language" />
-  <img src="https://raw.githubusercontent.com/TommyZ-7/TommyZ-7/main/assets/card-commit-languages.svg" alt="Commits per language" />
+  <img src="https://raw.githubusercontent.com/TommyZ-7/TommyZ-7/main/assets/card-languages-2.svg" alt="Repos per language" />
+  <img src="https://raw.githubusercontent.com/TommyZ-7/TommyZ-7/main/assets/card-commit-languages-2.svg" alt="Commits per language" />
 </p>
 
 <p align="center">

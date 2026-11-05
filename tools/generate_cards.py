@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
-"""Generate profile cards (SVG) in the header theme, from live GitHub data via gh."""
-import json, subprocess, sys, math
-from datetime import datetime, timedelta, timezone
+"""Generate profile cards (SVG) in the header theme, from live GitHub data via gh.
+
+Scope: all repos owned by the user (public + private), forks excluded.
+Language bytes are aggregated per-file from git trees with vendored paths
+(node_modules, venv, ...) excluded, so dependency trees do not distort ratios.
+"""
+import json, subprocess, sys
 
 USER = "TommyZ-7"
 OUT = sys.argv[1] if len(sys.argv) > 1 else "assets"
@@ -18,38 +22,72 @@ def gh(path, jq=None):
 def ghj(path):
     return json.loads(gh(path))
 
+EXT_LANG = {
+    ".py": "Python", ".rs": "Rust", ".ts": "TypeScript", ".tsx": "TypeScript",
+    ".js": "JavaScript", ".jsx": "JavaScript", ".mjs": "JavaScript",
+    ".c": "C", ".h": "C", ".cpp": "C++", ".hpp": "C++", ".cc": "C++", ".cxx": "C++",
+    ".css": "CSS", ".scss": "CSS", ".html": "HTML", ".htm": "HTML",
+    ".sh": "Shell", ".bash": "Shell", ".ps1": "PowerShell", ".bat": "Batchfile",
+    ".java": "Java", ".go": "Go", ".rb": "Ruby", ".php": "PHP", ".vue": "Vue",
+    ".svelte": "Svelte", ".kt": "Kotlin", ".swift": "Swift", ".scala": "Scala",
+    ".lua": "Lua", ".pl": "Perl", ".r": "R", ".sql": "SQL", ".toml": "TOML",
+}
+VENDOR_SEGMENTS = {"node_modules", "venv", ".venv", "vendor", "third_party", ".next",
+                   "dist", ".git", "__pycache__", "site-packages"}
+
+def repo_languages(owner, name, branch):
+    """Per-file language byte sums with vendored paths excluded."""
+    try:
+        tree = ghj(f"repos/{owner}/{name}/git/trees/{branch}?recursive=1")
+    except Exception:
+        return {}
+    sums = {}
+    for node in tree.get("tree", []):
+        if node.get("type") != "blob":
+            continue
+        path = node["path"]
+        if any(seg in VENDOR_SEGMENTS for seg in path.split("/")):
+            continue
+        dot = path.rfind(".")
+        if dot < 0:
+            continue
+        lang = EXT_LANG.get(path[dot:].lower())
+        if lang:
+            sums[lang] = sums.get(lang, 0) + node.get("size", 0)
+    return sums
+
+def commit_count(owner, name):
+    out = subprocess.run(["gh", "api", "-i", f"repos/{owner}/{name}/commits?per_page=1"],
+                         capture_output=True, text=True).stdout
+    for line in out.splitlines():
+        if line.lower().startswith("link:") and 'rel="last"' in line:
+            try:
+                return int(line.split("page=")[-1].split(">")[0])
+            except Exception:
+                pass
+    return 1
+
 # ---------- fetch data ----------
 user = ghj(f"users/{USER}")
-total_repos = len(ghj("user/repos?type=owner&per_page=100"))
-repos = ghj(f"users/{USER}/repos?per_page=100")
-own = [r for r in repos]
-total_stars = sum(r["stargazers_count"] for r in own)
-total_forks = sum(r["forks_count"] for r in own)
+auth = ghj("user")
+repos = ghj("user/repos?type=owner&per_page=100")
+total_repos = len(repos)
+total_stars = sum(r["stargazers_count"] for r in repos if not r["fork"])
+total_forks = sum(r["forks_count"] for r in repos if not r["fork"])
 joined = user["created_at"][:4]
 
 lang_bytes = {}
 commit_lang = {}
-for r in own:
-    if r.get("fork"):
-        continue  # language stats follow github-readme-stats convention: own repos only
-    if r["name"] == USER:
-        continue  # the profile repo itself is not counted
-    name = r["name"]
-    langs = ghj(f"repos/{USER}/{name}/languages")
+for r in repos:
+    if r["fork"]:
+        continue
+    owner, name = r["owner"]["login"], r["name"]
+    langs = repo_languages(owner, name, r["default_branch"])
     for k, v in langs.items():
         lang_bytes[k] = lang_bytes.get(k, 0) + v
-    # commit count via Link header (per_page=1)
-    out = subprocess.run(["gh", "api", "-i", f"repos/{USER}/{name}/commits?per_page=1"],
-                         capture_output=True, text=True).stdout
-    n = 1
-    for line in out.splitlines():
-        if line.lower().startswith("link:") and 'rel="last"' in line:
-            try:
-                n = int(line.split("page=")[-1].split(">")[0])
-            except Exception:
-                pass
-    if r.get("language"):
-        commit_lang[r["language"]] = commit_lang.get(r["language"], 0) + n
+    if langs:
+        primary = max(langs.items(), key=lambda kv: kv[1])[0]
+        commit_lang[primary] = commit_lang.get(primary, 0) + commit_count(owner, name)
 
 def top(data, n=5):
     items = sorted(data.items(), key=lambda kv: -kv[1])
@@ -63,6 +101,7 @@ def top(data, n=5):
 repo_langs = top(lang_bytes)
 commit_langs = top(commit_lang)
 
+from datetime import datetime, timedelta, timezone
 one_year_ago = (datetime.now(timezone.utc) - timedelta(days=365)).strftime("%Y-%m-%d")
 commits_1y = gh(f"search/commits?q=author:{USER}+author-date:>={one_year_ago}", ".total_count")
 prs = gh(f"search/issues?q=author:{USER}+type:pr", ".total_count")
@@ -79,7 +118,8 @@ print(json.dumps({
 LANG_COLORS = {
     "Rust": "#dea584", "TypeScript": "#3178c6", "C++": "#f34b7d", "C": "#a8b9cc",
     "Python": "#3572A5", "HTML": "#e34c26", "Shell": "#89e051", "JavaScript": "#f1e05a",
-    "CSS": "#663399", "Vue": "#41b883", "Other": "#565f89",
+    "CSS": "#663399", "Vue": "#41b883", "Other": "#565f89", "PowerShell": "#5391FE",
+    "Batchfile": "#C1F12E", "Go": "#00ADD8", "Java": "#b07219",
 }
 CSS = """
     .r { opacity: 0; animation: rise .6s ease-out forwards; }
