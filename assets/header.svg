@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 190" width="800" height="190" role="img" aria-label="TommyZ7">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a1b27"/>
+      <stop offset="1" stop-color="#24283b"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#299bd5" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#299bd5" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#bb9af7" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#bb9af7" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#299bd5"/>
+      <stop offset="0.5" stop-color="#bb9af7"/>
+      <stop offset="1" stop-color="#7dcfff"/>
+    </linearGradient>
+    <clipPath id="barClip"><rect x="0" y="186" width="800" height="4"/></clipPath>
+  </defs>
+  <style>
+    .a1 { opacity: 0; animation: rise .7s ease-out .10s forwards; }
+    .a2 { opacity: 0; animation: rise .7s ease-out .32s forwards; }
+    .a3 { opacity: 0; animation: rise .7s ease-out .54s forwards; }
+    @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .pop { opacity: 0; transform-origin: 66px 92px; animation: pop .6s cubic-bezier(.2,1.6,.4,1) .0s forwards; }
+    @keyframes pop { from { opacity: 0; transform: scale(.4); } to { opacity: 1; transform: scale(1); } }
+    .spin { transform-origin: 66px 92px; animation: spin 28s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .drift1 { animation: drift1 9s ease-in-out infinite alternate; }
+    @keyframes drift1 { from { transform: translate(0,0); } to { transform: translate(52px,16px); } }
+    .drift2 { animation: drift2 11s ease-in-out infinite alternate; }
+    @keyframes drift2 { from { transform: translate(0,0); } to { transform: translate(-44px,-12px); } }
+    .shine { animation: shine 4.5s ease-in-out infinite; }
+    @keyframes shine { 0% { transform: translateX(-180px); } 55%, 100% { transform: translateX(880px); } }
+    text { font-family: 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Noto Sans CJK JP', sans-serif; }
+  </style>
+  <rect width="800" height="190" rx="12" fill="url(#bg)"/>
+  <circle class="drift1" cx="700" cy="30" r="150" fill="url(#glow1)"/>
+  <circle class="drift2" cx="120" cy="185" r="130" fill="url(#glow2)"/>
+  <g class="pop">
+    <circle cx="66" cy="92" r="32" fill="#299bd5"/>
+    <g class="spin" stroke="#ffffff" stroke-width="5" stroke-linecap="round">
+      <line x1="66" y1="74" x2="66" y2="110"/>
+      <line x1="48" y1="92" x2="84" y2="92"/>
+      <line x1="53.3" y1="79.3" x2="78.7" y2="104.7"/>
+      <line x1="78.7" y1="79.3" x2="53.3" y2="104.7"/>
+    </g>
+  </g>
+  <text class="a1" x="120" y="90" font-size="44" font-weight="700" fill="#c0caf5">TommyZ7</text>
+  <text class="a2" x="122" y="124" font-size="17" fill="#9aa5ce">趣味プラグラマー</text>
+  <text class="a3" x="122" y="150" font-size="13.5" fill="#565f89">VRChat photo tools · Linux VR · Rust</text>
+  <rect x="0" y="186" width="800" height="4" fill="url(#bar)"/>
+  <g clip-path="url(#barClip)">
+    <rect class="shine" x="0" y="186" width="140" height="4" fill="#ffffff" opacity="0.35"/>
+  </g>
+</svg>
