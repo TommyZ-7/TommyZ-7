@@ -31,6 +31,8 @@ commit_lang = {}
 for r in own:
     if r.get("fork"):
         continue  # language stats follow github-readme-stats convention: own repos only
+    if r["name"] == USER:
+        continue  # the profile repo itself is not counted
     name = r["name"]
     langs = ghj(f"repos/{USER}/{name}/languages")
     for k, v in langs.items():
@@ -66,7 +68,7 @@ prs = gh(f"search/issues?q=author:{USER}+type:pr", ".total_count")
 issues = gh(f"search/issues?q=author:{USER}+type:issue", ".total_count")
 
 print(json.dumps({
-    "stars": total_stars, "forks": total_forks, "repos": user["public_repos"],
+    "stars": total_stars, "forks": total_forks, "repos": user["public_repos"] - 1,
     "followers": user["followers"], "following": user["following"], "joined": joined,
     "commits_1y": commits_1y, "prs": prs, "issues": issues,
     "repo_langs": repo_langs, "commit_langs": commit_langs,
@@ -136,7 +138,7 @@ def stat_block(x, w, num, cap, d):
 
 # ---------- profile details (800 wide) ----------
 facts = [
-    (str(user["public_repos"]), "REPOSITORIES"),
+    (str(user["public_repos"] - 1), "REPOSITORIES"),
     (str(total_stars), "STARS"),
     (str(total_forks), "FORKS"),
     (str(user["followers"]), "FOLLOWERS"),
@@ -150,12 +152,12 @@ svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 150" width="8
 {blocks}
 </svg>
 """
-open(f"{OUT}/profile-details.svg", "w").write(svg)
-print("wrote profile-details.svg 800x150")
+open(f"{OUT}/card-profile.svg", "w").write(svg)
+print("wrote card-profile.svg 800x150")
 
 # ---------- language cards ----------
-lang_card("repos-per-language.svg", "REPOS PER LANGUAGE", repo_langs)
-lang_card("most-commit-language.svg", "COMMITS PER LANGUAGE", commit_langs)
+lang_card("card-languages.svg", "REPOS PER LANGUAGE", repo_langs)
+lang_card("card-commit-languages.svg", "COMMITS PER LANGUAGE", commit_langs)
 
 # ---------- stats (800 wide) ----------
 stats = [
@@ -163,7 +165,7 @@ stats = [
     (str(commits_1y), "COMMITS (1Y)"),
     (str(prs), "PULL REQUESTS"),
     (str(issues), "ISSUES"),
-    (str(user["public_repos"]), "REPOSITORIES"),
+    (str(user["public_repos"] - 1), "REPOSITORIES"),
 ]
 blocks = "".join(stat_block(24 + i * 152, 140, n, c, 150 + i * 100) for i, (n, c) in enumerate(stats))
 svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 150" width="800" height="150" role="img" aria-label="Stats">
@@ -173,5 +175,5 @@ svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 150" width="8
 {blocks}
 </svg>
 """
-open(f"{OUT}/stats.svg", "w").write(svg)
-print("wrote stats.svg 800x150")
+open(f"{OUT}/card-stats.svg", "w").write(svg)
+print("wrote card-stats.svg 800x150")

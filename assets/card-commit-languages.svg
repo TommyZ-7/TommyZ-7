@@ -24,30 +24,30 @@
   <g class="r" style="animation-delay:120ms">
     <circle cx="30" cy="54" r="5" fill="#dea584"/>
     <text class="label" x="46" y="58">Rust</text>
-    <text class="pct" x="368" y="58" text-anchor="end">89.2%</text>
+    <text class="pct" x="368" y="58" text-anchor="end">89.7%</text>
     <rect x="24" y="66" width="344" height="7" rx="3.5" fill="#292e42"/>
-    <rect class="bar" style="animation-delay:260ms" x="24" y="66" width="306.7" height="7" rx="3.5" fill="#dea584"/>
+    <rect class="bar" style="animation-delay:260ms" x="24" y="66" width="308.5" height="7" rx="3.5" fill="#dea584"/>
   </g>
   <g class="r" style="animation-delay:230ms">
     <circle cx="30" cy="96" r="5" fill="#3178c6"/>
     <text class="label" x="46" y="100">TypeScript</text>
     <text class="pct" x="368" y="100" text-anchor="end">9.0%</text>
     <rect x="24" y="108" width="344" height="7" rx="3.5" fill="#292e42"/>
-    <rect class="bar" style="animation-delay:370ms" x="24" y="108" width="30.8" height="7" rx="3.5" fill="#3178c6"/>
+    <rect class="bar" style="animation-delay:370ms" x="24" y="108" width="30.9" height="7" rx="3.5" fill="#3178c6"/>
   </g>
   <g class="r" style="animation-delay:340ms">
-    <circle cx="30" cy="138" r="5" fill="#3572A5"/>
-    <text class="label" x="46" y="142">Python</text>
-    <text class="pct" x="368" y="142" text-anchor="end">1.0%</text>
+    <circle cx="30" cy="138" r="5" fill="#e34c26"/>
+    <text class="label" x="46" y="142">HTML</text>
+    <text class="pct" x="368" y="142" text-anchor="end">0.6%</text>
     <rect x="24" y="150" width="344" height="7" rx="3.5" fill="#292e42"/>
-    <rect class="bar" style="animation-delay:480ms" x="24" y="150" width="3.5" height="7" rx="3.5" fill="#3572A5"/>
+    <rect class="bar" style="animation-delay:480ms" x="24" y="150" width="1.9" height="7" rx="3.5" fill="#e34c26"/>
   </g>
   <g class="r" style="animation-delay:450ms">
-    <circle cx="30" cy="180" r="5" fill="#e34c26"/>
-    <text class="label" x="46" y="184">HTML</text>
+    <circle cx="30" cy="180" r="5" fill="#3572A5"/>
+    <text class="label" x="46" y="184">Python</text>
     <text class="pct" x="368" y="184" text-anchor="end">0.5%</text>
     <rect x="24" y="192" width="344" height="7" rx="3.5" fill="#292e42"/>
-    <rect class="bar" style="animation-delay:590ms" x="24" y="192" width="1.9" height="7" rx="3.5" fill="#e34c26"/>
+    <rect class="bar" style="animation-delay:590ms" x="24" y="192" width="1.6" height="7" rx="3.5" fill="#3572A5"/>
   </g>
   <g class="r" style="animation-delay:560ms">
     <circle cx="30" cy="222" r="5" fill="#f34b7d"/>

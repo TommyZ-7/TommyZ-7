@@ -24,14 +24,14 @@
   <g class="r" style="animation-delay:120ms">
     <circle cx="30" cy="54" r="5" fill="#dea584"/>
     <text class="label" x="46" y="58">Rust</text>
-    <text class="pct" x="368" y="58" text-anchor="end">83.8%</text>
+    <text class="pct" x="368" y="58" text-anchor="end">83.9%</text>
     <rect x="24" y="66" width="344" height="7" rx="3.5" fill="#292e42"/>
-    <rect class="bar" style="animation-delay:260ms" x="24" y="66" width="288.3" height="7" rx="3.5" fill="#dea584"/>
+    <rect class="bar" style="animation-delay:260ms" x="24" y="66" width="288.7" height="7" rx="3.5" fill="#dea584"/>
   </g>
   <g class="r" style="animation-delay:230ms">
     <circle cx="30" cy="96" r="5" fill="#3178c6"/>
     <text class="label" x="46" y="100">TypeScript</text>
-    <text class="pct" x="368" y="100" text-anchor="end">9.6%</text>
+    <text class="pct" x="368" y="100" text-anchor="end">9.7%</text>
     <rect x="24" y="108" width="344" height="7" rx="3.5" fill="#292e42"/>
     <rect class="bar" style="animation-delay:370ms" x="24" y="108" width="33.2" height="7" rx="3.5" fill="#3178c6"/>
   </g>
@@ -50,17 +50,17 @@
     <rect class="bar" style="animation-delay:590ms" x="24" y="192" width="3.2" height="7" rx="3.5" fill="#89e051"/>
   </g>
   <g class="r" style="animation-delay:560ms">
-    <circle cx="30" cy="222" r="5" fill="#3572A5"/>
-    <text class="label" x="46" y="226">Python</text>
+    <circle cx="30" cy="222" r="5" fill="#f1e05a"/>
+    <text class="label" x="46" y="226">JavaScript</text>
     <text class="pct" x="368" y="226" text-anchor="end">0.7%</text>
     <rect x="24" y="234" width="344" height="7" rx="3.5" fill="#292e42"/>
-    <rect class="bar" style="animation-delay:700ms" x="24" y="234" width="2.5" height="7" rx="3.5" fill="#3572A5"/>
+    <rect class="bar" style="animation-delay:700ms" x="24" y="234" width="2.4" height="7" rx="3.5" fill="#f1e05a"/>
   </g>
   <g class="r" style="animation-delay:670ms">
     <circle cx="30" cy="264" r="5" fill="#565f89"/>
     <text class="label" x="46" y="268">Other</text>
-    <text class="pct" x="368" y="268" text-anchor="end">2.0%</text>
+    <text class="pct" x="368" y="268" text-anchor="end">1.9%</text>
     <rect x="24" y="276" width="344" height="7" rx="3.5" fill="#292e42"/>
-    <rect class="bar" style="animation-delay:810ms" x="24" y="276" width="6.9" height="7" rx="3.5" fill="#565f89"/>
+    <rect class="bar" style="animation-delay:810ms" x="24" y="276" width="6.5" height="7" rx="3.5" fill="#565f89"/>
   </g>
 </svg>
