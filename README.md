@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=TommyZ-7&theme=tokyonight" alt="Profile details" />
+  <img src="./assets/profile-details.svg" width="800" alt="Profile details" />
 </p>
 
 <p align="center">
@@ -11,11 +11,10 @@
 </p>
 
 <p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=TommyZ-7&theme=tokyonight" alt="Repos per language" />
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=TommyZ-7&theme=tokyonight" alt="Most commit language" />
+  <img src="./assets/repos-per-language.svg" alt="Repos per language" />
+  <img src="./assets/most-commit-language.svg" alt="Commits per language" />
 </p>
 
 <p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=TommyZ-7&theme=tokyonight" alt="Stats" />
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=TommyZ-7&theme=tokyonight&timeZone=Asia/Tokyo" alt="Productive time" />
+  <img src="./assets/stats.svg" width="800" alt="Stats" />
 </p>
